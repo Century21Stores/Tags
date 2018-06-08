@@ -1,0 +1,2 @@
+digitalData.cacheBuster = Math.random() * 10000000000000;
+digitalData.page.isLandingPage = /^https?:\/\/(www\.)?((staging|production)\.c21\.weblinc|c21stores)\.com\/pages\/(women|contemporary|shoes|handbags-accessories|beauty|men|kids|home|tech|gift-cards)\/?(\?.+)?$/.test(digitalData.pageInstanceID);
