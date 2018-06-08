@@ -1,4 +1,4 @@
-//push 2
+//push real
 document.addEventListener("submit", function(e){
   var checkbox = e.target.querySelector("#email_signup");
   if (checkbox && checkbox.checked)
