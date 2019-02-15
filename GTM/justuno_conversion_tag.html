@@ -10,8 +10,11 @@
 
   juapp(
     'order',
-    '[order id]',
-    {total:[order total],subtotal:[order subtotal],tax:[order tax],shipping:[order shipping],currency:'USD'}
+    dataLayer[1].transactionId,
+    {
+      total:dataLayer[1].transactionTotal,
+      currency:'USD'
+    }
   );
 
   /*
