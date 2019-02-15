@@ -1,0 +1,29 @@
+<!-- Important: This script goes on the "Post Purchase Thank You/Order Confirmation Page" to track conversions. You can optionally add this code to your conversion page to enable conversion tracking. The embed code above is also still required on the conversion page. -->
+
+<script data-cfasync="false">
+  window.juapp=window.juapp||function(){(window.juapp.q=window.juapp.q||[]).push(arguments)}
+
+  /*
+  Replace the [order ...] portions below with the actual order information.
+  You can omit any of the attributes that you don't have values other then the order id and order total.
+  */
+
+  juapp(
+    'order',
+    '[order id]',
+    {total:[order total],subtotal:[order subtotal],tax:[order tax],shipping:[order shipping],currency:'USD'}
+  );
+
+  /*
+  You will need to repeat this line of code for each item in the order.
+  Replace the [item ...] portions below with the actual item information in order.
+  You can omit any of the attributes that you don't have values other then the item id and quantity.
+  */
+
+  juapp(
+    'orderItem',
+    {productid:'[product id]',variationid:'[variation id]',sku:'[sku]',name:'[item name]',quantity:[item quantity],price:[item price],color:'[item color]',size:'[item size]'}
+  );
+
+  /* end of repeat section */
+</script>
