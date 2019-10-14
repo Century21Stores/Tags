@@ -1,4 +1,4 @@
-document.addEventListener("checkoutOrderPlaced", function() {
+‘‘‘‘‘‘document.addEventListener("checkoutOrderPlaced", function() {
   var lytics = $(".view").data("analytics").payload;
   var skulist = '';
   for (var i = lytics.items.length; i--;) {

@@ -1,5 +1,3 @@
-<!-- Important: This script goes on the "Post Purchase Thank You/Order Confirmation Page" to track conversions. You can optionally add this code to your conversion page to enable conversion tracking. The embed code above is also still required on the conversion page. -->
-
 <script data-cfasync="false">
   window.juapp=window.juapp||function(){(window.juapp.q=window.juapp.q||[]).push(arguments)}
 
@@ -10,11 +8,8 @@
 
   juapp(
     'order',
-    dataLayer[1].transactionId,
-    {
-      total:dataLayer[1].transactionTotal,
-      currency:'USD'
-    }
+    '[order id]',
+    {total:[order total],subtotal:[order subtotal],tax:[order tax],shipping:[order shipping],currency:'USD'}
   );
 
   /*
