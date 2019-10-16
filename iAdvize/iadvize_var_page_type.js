@@ -7,13 +7,17 @@ function () {
   
   switch (pageData) {
     case 'Product-Show':
-      pageType = 'product';
+      pageType = 'PDP: product page';
       break;
     case 'Search-Show':
       if (pageQuery.includes('cgid=')) {
-        pageType = 'category';
-      } else if (pageQuery.includes('q=')) {
+        pageType = 'PLP: category page';
+      }
+      else if (pageQuery.includes('q=')) {
       	pageType = 'search';
+      }
+      else if (pageQuery.includes('prefn1=brand')) {
+        pageType = 'Designer Index search';
       }
       break;
     case 'Home-Show':
@@ -23,8 +27,11 @@ function () {
     case 'Page-Show':
       pageType = 'content';
       break;
+    case 'Cart-Show':
+      pageType = 'shopping cart';
+      break;
     default:
-      pageType = 'other';
+      pageType = window.location.href;
       break;
   }
   
