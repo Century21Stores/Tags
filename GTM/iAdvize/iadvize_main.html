@@ -2,7 +2,13 @@
 <script type='text/javascript' id="gtm_iadvize_main">
 (function() {
 var idz = document.createElement('script'); idz.type = 'text/javascript'; idz.async = true;
-idz.src = document.location.protocol + '/' + '/' + 'halc.iadvize.com/iadvize.js?sid=6914&lang=en';
+if(window.location.href.indexOf("staging-na01-century21.demandware.net") > -1) {
+	// console.log("GTM iadvize staging");
+	idz.src = document.location.protocol + '/' + '/' + 'halc.iadvize.com/iadvize.js?sid=6914&lang=en';
+}else{
+	// console.log("GTM iadvize production");
+	idz.src = document.location.protocol + '/' + '/' + 'halc.iadvize.com/iadvize.js?sid=6913&lang=en';
+}
 var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(idz, s);
 })();
 </script>
