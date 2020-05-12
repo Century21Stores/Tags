@@ -1,0 +1,100 @@
+<script type="text/javascript">
+  /*
+   The following variables are examples of the expected data structure
+   of the product, promotion, and purchase information included in the
+   conversion. If you are using a tag management environment, variables
+   are likely available to populate these dynamically, and you should
+   replace the values with those variable references. If your purchase,
+   promotion, and/or product information is formatted differently,
+   editing the code below may be required.
+  */
+
+  /* Replace the following values with your tag manager's variables */
+  var purchaseInfo = {
+    revenue : "123.45",
+    identifier : "1122334455"
+  };
+
+  var promoInfo = {
+    code: "10%Off",
+    description: "Receive 10% off your order!"
+  };
+
+  var productObjects = [
+    {
+      sku: "1234567890",
+      name: "Example Product 1",
+      price: "12.34",
+      quantity: "1"
+    },
+    {...},
+    {
+      sku: "0987654321",
+      name: "Example Product N",
+      price: "43.21",
+      quantity: "2"
+    }
+  ];
+
+  /*
+  The following is the Behavior Tracking Script. It must
+  come before the conversion tracking script below.
+  */
+  (function(m,o,v,a,b,l,e) {
+    if (typeof m['MovableInkTrack'] !== 'undefined') { return; }
+    m['MovableInkTrack'] = b;
+    l = o.createElement(v);
+    e = o.getElementsByTagName(v)[0];
+    l.type = 'text/javascript'; l.async = true;
+    l.src = '//' + a + '/p/js/1.js';
+    m[b] = m[b] || function() { (m[b].q=m[b].q||[]).push(arguments); };
+    e.parentNode.insertBefore(l, e);
+
+    /* Exclusively for Century 21 */
+  })(window, document, 'script', 'jpnlv84t.micpn.com', 'mitr');
+
+  /*
+  The following loop stages each product in the productObjects
+  array for inclusion in the conversion event.
+  */
+  for (var i = 0; i < productObjects.length; i++) {
+    var product = productObjects[i];
+
+    /*
+    The below syntax may vary based on your productObjects
+    formatting and tag management environment.
+    */
+    if (product.sku) {
+      mitr('addProduct', {
+        sku: product.sku,    /* REQUIRED */
+        name: product.name,
+        price: product.price,
+        quantity: product.quantity,
+        other: ""
+      });
+    }
+  }
+
+  /*
+  The below promo tracking portion is OPTIONAL, and stages
+  information about promotion or coupon codes used with the current
+  conversion. The below syntax may vary based on your promoInfo
+  formatting and tag management environment.
+  */
+  if (promoInfo && promoInfo.code) {
+    mitr('addPromo', {
+      code: promoInfo.code,   /* If including this call, this field is REQUIRED. */
+      description: promoInfo.description
+    });
+  }
+
+  /*
+  The following call is REQUIRED, and sends the conversion event.
+  The below syntax may vary based on your purchaseInfo formatting
+  and tag management environment.
+  */
+  mitr('send', 'conversion', {
+    revenue: purchaseInfo.revenue,
+    identifier: purchaseInfo.identifier
+  });
+</script>
