@@ -1,0 +1,110 @@
+<!-- Facebook Pixel Code -->
+<script id="gtm_facebookbasecode">
+  var trackFBPageView=true;
+  var loadFB=true;
+  var setPrevCookieVal=true;
+  var prevCookie={
+    "value":"",
+    "set":function(){
+      console.log("setting cookie");
+      var v;
+      if(!setPrevCookieVal){
+      	v="onlyOnce";
+      } else if (window.location.href.indexOf("/categories/") > -1){
+       	 v='/categories/';
+      } else {
+        v=window.location.href;
+        v = v.substr(v.lastIndexOf('#') + 1).trim();
+      }
+      console.log("setting prevCookie to "+v);
+      document.cookie = "prevCookie="+v+";path=/";
+      return v;
+    },
+   	"load":function(){
+      var c=document.cookie.split(";");
+      var i;
+      for(i=0;i<c.length;i++){
+        c[i]=c[i].split('=');
+        if(c[i][0].trim()=="prevCookie"){
+          	console.log("prevCookie found, defining value as "+c[i][1]);
+          	console.log(c[i]);
+        	prevCookie.value=c[i][1].trim();
+        }
+      }
+      console.log("prevCookie is "+prevCookie.value);
+      return prevCookie.value;
+    }
+  }
+  var fbPageviewChecker=function(){
+    console.log(window.location.href);
+    prevCookie.load();
+    if (window.location.href.indexOf("/checkout?stage") > -1) {
+      console.log("checkout found. Testing pageview");
+      if(prevCookie.value=="shipping" & window.location.href.indexOf("#shipping")==-1){
+          console.log("no pv - shipping");
+          //loadFB=false;
+          trackFBPageView=false;
+      } else if(window.location.href.indexOf("#prescreen")!=-1){
+         console.log("no pv - prescreen");
+         loadFB=false;
+         trackFBPageView=false;
+      } else {
+          console.log("pv"); 
+      }
+    } else if (window.location.href.indexOf("/products/")>-1){
+      console.log("product found. Testing pageview");
+      if(prevCookie.value=="/categories/" || /\d\d\d\d\-\d\d\d\d$/.test(prevCookie.value)){
+          console.log("pv only once");
+          setPrevCookieVal=false;
+          trackFBPageView=true;
+      } else if (prevCookie.value=="onlyOnce"){
+          console.log("no pv");
+          trackFBPageView=false;
+          setPrevCookieVal=true;
+      } else {
+          console.log("pv"); 
+      }
+    }
+  }
+  
+fbPageviewChecker();
+  
+var setupFB=function(a){
+  console.log("setupFB");
+  !function(f,b,e,v,n,t,s){
+    if(f.fbq)return;
+    n=f.fbq=function(){
+      n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)
+    };
+  	if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  	n.queue=[];t=b.createElement(e);t.async=!0;
+  	t.src=v;s=b.getElementsByTagName(e)[0];
+  	s.parentNode.insertBefore(t,s)
+  }(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  
+  console.log("fbq init");
+  if(typeof(a)!="boolean"){a=false;}
+  // fbq('dataProcessingOptions', ['LDU'], 1, 1000);
+  fbq('init', '1228598923821818');
+  if(trackFBPageView || a){
+      fbq('track', 'PageView'); 
+  }
+  fbq('track', 'PixelInitialized');
+}
+
+if(!loadFB){
+  console.log("no loadFB");
+}else{
+  if(typeof(fbq)=="undefined"){
+    window.fbqIsInit=true;
+    setupFB(false);
+  }
+}
+prevCookie.set();
+</script>
+<!-- Insert Your Facebook Pixel ID below. --> 
+<noscript>
+<img alt="" height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1228598923821818&amp;ev=PageView&amp;noscript=1"/>
+<img alt="" height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1228598923821818&ev=Purchase&dpo=LDU&dpoco=1&dpost=1000"/>
+</noscript>
+

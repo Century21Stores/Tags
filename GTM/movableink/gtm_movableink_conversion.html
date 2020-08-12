@@ -1,0 +1,59 @@
+<script type="text/javascript" id="gtm_movableink_conversion">
+var purchaseInfo = {
+  revenue : {{dL - Transaction Revenue}},
+  identifier : {{dL - Transaction ID}}
+};
+
+var promoInfo = {
+  code: {{dL - orderPromoCode}},
+  description: ""
+};
+
+var productObjects = {{dL - Transaction Products}};
+
+/*
+The following loop stages each product in the productObjects
+array for inclusion in the conversion event.
+*/
+for (var i = 0; i < productObjects.length; i++) {
+  var product = productObjects[i];
+
+  /*
+  The below syntax may vary based on your productObjects
+  formatting and tag management environment.
+  */
+  if (product.sku) {
+    mitr('addProduct', {
+      sku: product.id,    /* REQUIRED */
+      name: product.name,
+      price: product.price,
+      quantity: product.quantity,
+      subTotal: product.price * product.quantity,
+      category: products[i].category
+    });
+  }
+}
+
+/*
+The below promo tracking portion is OPTIONAL, and stages
+information about promotion or coupon codes used with the current
+conversion. The below syntax may vary based on your promoInfo
+formatting and tag management environment.
+*/
+if (promoInfo && promoInfo.code) {
+  mitr('addPromo', {
+    code: promoInfo.code,   /* If including this call, this field is REQUIRED. */
+    description: promoInfo.description
+  });
+}
+
+/*
+The following call is REQUIRED, and sends the conversion event.
+The below syntax may vary based on your purchaseInfo formatting
+and tag management environment.
+*/
+mitr('send', 'conversion', {
+  revenue: purchaseInfo.revenue,
+  identifier: purchaseInfo.identifier
+});
+</script>
